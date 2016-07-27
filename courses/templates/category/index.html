@@ -1,0 +1,66 @@
+{% extends 'app/base.html' %}
+
+{% load static %}
+
+{% block breadcrumbs %}
+	<ol class="breadcrumb">
+	  	<li><a href="{% url 'app:index' %}">Página Inicial</a></li>
+	  	<li class="active">Gerenciar Categorias</li>
+	</ol>
+{% endblock %}
+
+{% block sidebar %}
+	<div class="list-group">
+	  	<a href="{% url 'app:course:manage_cat' %}" class="list-group-item active">
+	    	Categorias
+	  	</a>
+	  	<a href="{% url 'app:course:create_cat' %}" class="list-group-item">
+	    	Criar Categoria
+	  	</a>
+	</div>
+{% endblock %}
+
+{% block content %}
+	{% if messages %}
+		{% for message in messages %}
+			<div class="alert alert-success alert-dismissible" role="alert">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<p>{{ message }}</p>
+			</div>
+		{% endfor %}
+	{% endif %}
+	<div class="table-responsive">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Nome</th>
+					<th>Slug</th>
+					<th class="text-center">Ações</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% if categories|length > 0 %}
+					{% for category in categories %}
+						<tr>
+							<td>{{ category }}</td>
+							<td>{{ category.slug }}</td>
+							<td class="text-center">
+								<a href="{% url 'app:course:view_cat' category.slug %}" class="btn btn-info btn-sm"><span class="glyphicon glyphicon-eye-open"></span></a>
+								<a href="{% url 'app:course:update_cat' category.slug %}" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
+								<a href="" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove"></span></a>
+							</td>
+						</tr>
+					{% endfor %}
+				{% else %}
+					<tr>
+						<td colspan="3">
+							Nenhuma categoria foi criada até o momento
+						</td>
+					</tr>
+				{% endif %}
+			</tbody>
+		</table>
+	</div>
+{% endblock %}

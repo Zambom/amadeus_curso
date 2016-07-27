@@ -1,0 +1,29 @@
+{% extends 'course/index.html' %}
+
+{% block sidebar %}
+	<div class="list-group">
+	  	<a href="{% url 'app:course:manage' %}" class="list-group-item">
+	    	Cursos
+	  	</a>
+	  	<a href="{% url 'app:course:create' %}" class="list-group-item">
+	    	Criar Curso
+	  	</a>
+	</div>
+
+	<hr />
+
+	{% if categories|length > 0 %}
+
+		<h4>Categorias: </h4>
+
+		<ul class="categories">
+			{% for category in categories %}
+				<li {% if cat.id == category.id %} class="active" {% endif %}>
+					<a href="{% url 'app:course:filter' category.slug %}">
+						{{ category }}
+					</a>
+				</li>
+			{% endfor %}
+		</ul>
+	{% endif %}
+{% endblock %}
