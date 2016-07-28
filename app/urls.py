@@ -6,7 +6,6 @@ urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^test/$', views.test, name='test'),
     url(r'^', include('courses.urls', namespace = 'course')),
-    url(r'^cursos/modulos/$', views.modulos_curso, name='modulos_curso'),
     url(r'^cursos/participantes/$', views.participantes_curso, name='participantes_curso'),
     url(r'^cursos/avaliacoes/$', views.avaliacao_curso, name='avaliacao_curso'),
     url(r'^usuarios/', include('users.urls', namespace = 'users')),

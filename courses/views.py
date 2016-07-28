@@ -1,10 +1,12 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from slugify import slugify
 from .forms import CourseForm, CategoryForm, ModuleForm
 
 from .models import Course, Module, Category
 
+@login_required
 def index(request):
 	context = {
 		'courses': Course.objects.all(),
@@ -13,6 +15,7 @@ def index(request):
 
 	return render(request, "course/index.html", context)
 
+@login_required
 def create(request):
 	context = {}
 
@@ -32,6 +35,7 @@ def create(request):
 
 	return render(request, "course/create.html", context)
 
+@login_required
 def update(request, slug):
 	context = {}
 	
@@ -61,6 +65,7 @@ def update(request, slug):
 
 	return render(request, "course/update.html", context)
 
+@login_required
 def view(request, slug):
 	context = {}
 
@@ -70,6 +75,7 @@ def view(request, slug):
 
 	return render(request, "course/view.html", context)
 
+@login_required
 def filter_cat(request, slug):
 	context = {}
 
@@ -81,6 +87,7 @@ def filter_cat(request, slug):
 
 	return render(request, "course/filtered.html", context)
 
+@login_required
 def index_cat(request):
 	context = {
 		'categories': Category.objects.all(),
@@ -88,6 +95,7 @@ def index_cat(request):
 
 	return render(request, "category/index.html", context)
 
+@login_required
 def create_cat(request):
 	context = {}
 
@@ -107,6 +115,7 @@ def create_cat(request):
 
 	return render(request, "category/create.html", context)
 
+@login_required
 def update_cat(request, slug):
 	context = {}
 	
@@ -135,6 +144,7 @@ def update_cat(request, slug):
 
 	return render(request, "category/update.html", context)
 
+@login_required
 def view_cat(request, slug):
 	context = {}
 
@@ -144,6 +154,7 @@ def view_cat(request, slug):
 
 	return render(request, "category/view.html", context)
 
+@login_required
 def index_modules(request, slug_course):
 	context = {}
 
@@ -154,6 +165,7 @@ def index_modules(request, slug_course):
 
 	return render(request, "module/index.html", context)
 
+@login_required
 def create_modules(request, slug_course):
 	context = {}
 
@@ -182,6 +194,7 @@ def create_modules(request, slug_course):
 
 	return render(request, "module/create.html", context)
 
+@login_required
 def update_modules(request, slug, slug_course):
 	context = {}
 	

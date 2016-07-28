@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'widget_tweaks',
+    'rolepermissions',
 
     'core',
     'app',
@@ -135,3 +136,11 @@ STATIC_URL = '/static/'
 # Files
 MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'uploads')
 MEDIA_URL = '/uploads/'
+
+# Users
+LOGIN_REDIRECT_URL = 'app:index'
+LOGIN_URL = 'home'
+AUTH_USER_MODEL = 'users.User'
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+]
