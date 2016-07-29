@@ -6,20 +6,17 @@
 {% block breadcrumbs %}
 	<ol class="breadcrumb">
 	  	<li><a href="{% url 'app:index' %}">Página Inicial</a></li>
-	  	<li class="active">Editar usuário</li>
+	  	<li class="active">Editar Perfil</li>
 	</ol>
 {% endblock %}
 
 {% block sidebar %}
 	<div class="list-group">
-	  	<a href="{% url 'app:users:manage' %}" class="list-group-item">
-	    	Usuários do Sistema
+		<a href="{% url 'app:users:profile' %}" class="list-group-item">
+	    	Perfil
 	  	</a>
-	  	<a href="{% url 'app:users:create' %}" class="list-group-item">
-	    	Nova Conta
-	  	</a>
-	  	<a href="{% url 'app:send_mail' %}" class="list-group-item">
-	    	Enviar Email
+	  	<a href="{% url 'app:users:edit_profile' %}" class="list-group-item active">
+	    	Editar Perfil
 	  	</a>
 	</div>
 {% endblock %}
@@ -31,6 +28,16 @@
 		</button>
 		<p>Todos os campos do formulário são de preenchimento obrigatório</p>
 	</div>
+	{% if messages %}
+		{% for message in messages %}
+			<div class="alert alert-success alert-dismissible" role="alert">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<p>{{ message }}</p>
+			</div>
+		{% endfor %}
+	{% endif %}
 
 	<form method="post" action="" enctype="multipart/form-data">
 		{% csrf_token %}

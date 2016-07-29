@@ -1,0 +1,48 @@
+{% extends 'app/base.html' %}
+
+{% load static %}
+{% load widget_tweaks %}
+
+{% block breadcrumbs %}
+	<ol class="breadcrumb">
+	  	<li><a href="{% url 'app:index' %}">Página Inicial</a></li>
+	  	<li class="active">Perfil</li>
+	</ol>
+{% endblock %}
+
+{% block sidebar %}
+	<div class="list-group">
+		<a href="{% url 'app:users:profile' %}" class="list-group-item active">
+	    	Perfil
+	  	</a>
+	  	<a href="{% url 'app:users:edit_profile' %}" class="list-group-item">
+	    	Editar Perfil
+	  	</a>
+	</div>
+{% endblock %}
+
+{% block content %}
+	<div class="row">
+		<div class="col-sm-3">
+			<img src="{{ user.image.url }}" class="img-responsive" />
+		</div>
+		<div class="col-sm-9">
+			<h4>{{ user }}</h4>
+			<span class="label label-info">{% if user.type_profile %}{{ user.type_profile }}{% else %}Administrador{% endif %}</span>
+			<span class="label label-primary">{{ user.gender }}</span>
+			<span class="label label-warning">{{ user.city }} / {{ user.state }}</span>
+			<p>
+				<strong>E-mail: </strong> {{ user.email }}
+			</p>
+			<p>
+				<strong>Telefone: </strong> {{ user.phone }}
+			</p>
+			<p>
+				<strong>Cpf: </strong> {{ user.cpf }}
+			</p>
+			<p>
+				<strong>Data de nascimento: </strong> {{ user.birth_date }}
+			</p>
+		</div>
+	</div>
+{% endblock %}
