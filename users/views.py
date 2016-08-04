@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from rolepermissions.shortcuts import assign_role
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import User
@@ -19,7 +20,15 @@ def create(request):
 	form = UserForm(request.POST or None, request.FILES or None)
 	
 	if form.is_valid():
-		form.save()
+		user = form.save(commit = False)
+
+		if user.type_profile == 2:
+			assign_role(user, 'Aluno')
+		elif user.type_profile == 1:
+			assign_role(user, 'Professor')
+
+		user.save()
+
 		messages.success(request, 'Usuário criado com sucesso!')
 
 		return redirect('app:users:manage')
@@ -37,7 +46,15 @@ def update(request, login):
 	form = UserForm(request.POST or None, request.FILES or None, instance = user)
 	
 	if form.is_valid():
-		form.save()
+		new_user = form.save(commit = False)
+
+		if new_user.type_profile == 1:
+			assign_role(new_user, 'student')
+		elif user.type_profile == 2:
+			assign_role(new_user, 'professor')
+
+		new_user.save()
+
 		messages.success(request, 'Usuário editado com sucesso!')
 
 		return redirect('app:users:manage')

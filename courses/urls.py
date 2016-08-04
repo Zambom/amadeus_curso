@@ -3,7 +3,7 @@ from django.conf.urls import url
 from . import views
 
 urlpatterns = [
-	url(r'^cursos/$', views.index, name='manage'),
+	url(r'^cursos/$', views.IndexView.as_view(), name='manage'),
 	url(r'^cursos/criar/$', views.create, name='create'),
 	url(r'^cursos/editar/([\w_-]+)/$', views.update, name='update'),
 	url(r'^cursos/([\w_-]+)/$', views.view, name='view'),

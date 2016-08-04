@@ -1,6 +1,7 @@
 {% extends 'app/base.html' %}
 
 {% load static %}
+{% load permission_tags %}
 
 {% block sidebar %}
 	<h4>Você tem: </h4>
@@ -25,9 +26,11 @@
 		<a href="{% url 'app:users:manage' %}" class="list-group-item">
 			Gerenciar Usuários
 		</a>
-		<a href="{% url 'app:course:manage' %}" class="list-group-item">
-			Gerenciar Cursos
-		</a>
+		{% if user|has_role:'professor' %}
+			<a href="{% url 'app:course:manage' %}" class="list-group-item">
+				Gerenciar Cursos
+			</a>
+		{% endif %}
 		<a href="{% url 'app:course:manage_cat' %}" class="list-group-item">
 			Gerenciar Categorias
 		</a>

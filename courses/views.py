@@ -1,19 +1,29 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.views import generic
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator, EmptyPage
+from django.contrib.auth.mixins import LoginRequiredMixin
 from slugify import slugify
 from .forms import CourseForm, CategoryForm, ModuleForm
 
 from .models import Course, Module, Category
 
-@login_required
-def index(request):
-	context = {
-		'courses': Course.objects.all(),
-		'categories': Category.objects.all()
-	}
 
-	return render(request, "course/index.html", context)
+class IndexView(LoginRequiredMixin, generic.ListView):
+
+	login_url = '/'
+	redirect_field_name = 'next'
+	queryset = Course.objects.all()
+	template_name = 'course/index.html'
+	context_object_name = 'courses'
+	paginate_by = 1
+
+	def get_context_data(self, **kwargs):
+		context = super(IndexView, self).get_context_data(**kwargs)
+		context['categories'] = Category.objects.all()
+
+		return context
 
 @login_required
 def create(request):
