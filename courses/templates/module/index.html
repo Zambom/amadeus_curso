@@ -36,7 +36,7 @@
 		<a href="" class="list-group-item">
 	    	Replicar Curso
 	  	</a>
-	  	<a href="" class="list-group-item">
+	  	<a href="{% url 'app:course:delete' course.slug %}" class="list-group-item">
 	    	Deletar Curso
 	  	</a>
 	</div>
@@ -104,10 +104,10 @@
 				        			{% else %}
 				        				<span class="label label-danger">Invisível</span>
 				        			{% endif %}
-				        			<a href="{% url 'app:course:update_mods' module.slug course.slug %}" class="btn btn-sm btn-primary" style="margin-top: 10px">
+				        			<a href="{% url 'app:course:update_mods' course.slug module.slug %}" class="btn btn-sm btn-primary" style="margin-top: 10px">
 										<span class="glyphicon glyphicon-edit"></span>
 									</a>
-									<a href="" class="btn btn-sm btn-danger" style="margin-top: 10px">
+									<a href="{% url 'app:course:delete_mods' course.slug module.slug %}" class="btn btn-sm btn-danger" style="margin-top: 10px">
 										<span class="glyphicon glyphicon-trash"></span>
 									</a>
 				        		</div>

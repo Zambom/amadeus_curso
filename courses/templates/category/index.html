@@ -49,7 +49,7 @@
 							<td class="text-center">
 								<a href="{% url 'app:course:view_cat' category.slug %}" class="btn btn-info btn-sm"><span class="glyphicon glyphicon-eye-open"></span></a>
 								<a href="{% url 'app:course:update_cat' category.slug %}" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
-								<a href="" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove"></span></a>
+								<a href="{% url 'app:course:delete_cat' category.slug %}" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a>
 							</td>
 						</tr>
 					{% endfor %}
