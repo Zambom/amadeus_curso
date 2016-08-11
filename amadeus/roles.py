@@ -21,3 +21,6 @@ class Professor(AbstractUserRole):
 		'edit_categories': True,
 		'delete_categories': True,
 	}
+
+class SystemAdmin(AbstractUserRole):
+	pass

@@ -1,39 +1,42 @@
 {% extends 'app/base.html' %}
 
-{% load static %}
-{% load permission_tags %}
+{% load static i18n permission_tags %}
 
 {% block sidebar %}
-	<h4>Você tem: </h4>
+	<h4>{% trans 'You have:' %} </h4>
 	<div class="list-group">
 	  	<a href="{% url 'app:tarefas' %}" class="list-group-item">
 	  		<span class="badge">4</span>
-	    	Tarefas Pendentes
+	    	{% trans 'Pending Tasks' %}
 	  	</a>
 	  	<a href="{% url 'app:online' %}" class="list-group-item">
 	  		<span class="badge">0</span>
-	    	Usuários Online
+	    	{% trans 'Users Online' %}
 	  	</a>
 	</div>
 
 	<hr />
 
-	<h4>Você pode:</h4>
+	<h4>{% trans 'You can:' %} </h4>
 	<div class="list-group">
-		<a href="{% url 'app:course:create' %}" class="list-group-item">
-			Criar Curso
-		</a>
-		<a href="{% url 'app:users:manage' %}" class="list-group-item">
-			Gerenciar Usuários
-		</a>
 		{% if user|has_role:'professor' %}
-			<a href="{% url 'app:course:manage' %}" class="list-group-item">
-				Gerenciar Cursos
+			<a href="{% url 'app:course:create' %}" class="list-group-item">
+				{% trans 'Create Course' %}
 			</a>
 		{% endif %}
-		<a href="{% url 'app:course:manage_cat' %}" class="list-group-item">
-			Gerenciar Categorias
+		{% if user|has_role:'professor' %}
+			<a href="{% url 'app:users:manage' %}" class="list-group-item">
+				{% trans 'Manage Users' %}
+			</a>
+		{% endif %}
+		<a href="{% url 'app:course:manage' %}" class="list-group-item">
+			{% trans 'Manage Courses' %}
 		</a>
+		{% if user|has_role:'professor' %}
+			<a href="{% url 'app:course:manage_cat' %}" class="list-group-item">
+				{% trans 'Gerenciar Categorias' %}
+			</a>
+		{% endif %}
 	</div>
 
 	<hr />
@@ -58,18 +61,18 @@
 			<form class="form-horizontal" method="post">
 				<div class="col-sm-10">
 					<div class="form-group">
-						<label for="search_keyword" class="control-label col-sm-3">Buscar um curso: </label>
+						<label for="search_keyword" class="control-label col-sm-3">{% trans 'Search course:' %} </label>
 						<div class="col-sm-9">
 							<input type="text" class="form-control input-sm" id="search_keyword" />
 						</div>
 					</div>
 				</div>
-				<button type="submit" class="btn btn-sm btn-success">Buscar</button>
+				<button type="submit" class="btn btn-sm btn-success">{% trans 'Search' %}</button>
 			</form>
 
 			<hr />
 
-			<h5>Palavras-chave mais populares:</h5>
+			<h5>{% trans 'Most popular keywords:' %}</h5>
 			<div class="well">
 				<center>
 					<ul class="cloud">

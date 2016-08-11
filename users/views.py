@@ -3,7 +3,7 @@ from rolepermissions.shortcuts import assign_role
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import User
-from .forms import UserForm
+from .forms import UserForm, ProfileForm
 
 @login_required
 def index(request):
@@ -23,9 +23,11 @@ def create(request):
 		user = form.save(commit = False)
 
 		if user.type_profile == 2:
-			assign_role(user, 'Aluno')
+			assign_role(user, 'student')
 		elif user.type_profile == 1:
-			assign_role(user, 'Professor')
+			assign_role(user, 'professor')
+		elif user.is_staff:
+			assign_role(user, 'system_admin')
 
 		user.save()
 
@@ -48,10 +50,12 @@ def update(request, login):
 	if form.is_valid():
 		new_user = form.save(commit = False)
 
-		if new_user.type_profile == 1:
-			assign_role(new_user, 'student')
-		elif user.type_profile == 2:
-			assign_role(new_user, 'professor')
+		if user.type_profile == 2:
+			assign_role(user, 'student')
+		elif user.type_profile == 1:
+			assign_role(user, 'professor')
+		elif user.is_staff:
+			assign_role(user, 'system_admin')
 
 		new_user.save()
 
@@ -88,7 +92,17 @@ def edit_profile(request):
 	context = {}
     
 	if form.is_valid():
-		form.save()
+		user = form.save(commit = False)
+
+		if user.type_profile == 2:
+			assign_role(user, 'student')
+		elif user.type_profile == 1:
+			assign_role(user, 'professor')
+		elif user.is_staff:
+			assign_role(user, 'system_admin')
+
+		user.save()
+
 		messages.success(request, 'Perfil editado com sucesso!')
 
 	context['form'] = form
