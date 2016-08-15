@@ -1,22 +1,22 @@
 {% extends 'app/base.html' %}
 
-{% load static %}
+{% load static i18n %}
 {% load widget_tweaks %}
 
 {% block breadcrumbs %}
 	<ol class="breadcrumb">
-	  	<li><a href="{% url 'app:index' %}">Página Inicial</a></li>
-	  	<li class="active">Perfil</li>
+	  	<li><a href="{% url 'app:index' %}">{% trans 'Home' %}</a></li>
+	  	<li class="active">{% trans 'Profile' %}</li>
 	</ol>
 {% endblock %}
 
 {% block sidebar %}
 	<div class="list-group">
 		<a href="{% url 'app:users:profile' %}" class="list-group-item active">
-	    	Perfil
+	    	{% trans 'Profile' %}
 	  	</a>
 	  	<a href="{% url 'app:users:edit_profile' %}" class="list-group-item">
-	    	Editar Perfil
+	    	{% trans 'Edit Profile' %}
 	  	</a>
 	</div>
 {% endblock %}
@@ -28,20 +28,21 @@
 		</div>
 		<div class="col-sm-9">
 			<h4>{{ user }}</h4>
-			<span class="label label-info">{% if user.type_profile %}{{ user.type_profile }}{% else %}Administrador{% endif %}</span>
+			<span class="label label-info">{% if user.type_profile %}{{ user.type_profile }}{% else %}
+			{% trans 'Administrator' %} {% endif %}</span>
 			<span class="label label-primary">{{ user.gender }}</span>
 			<span class="label label-warning">{{ user.city }} / {{ user.state }}</span>
 			<p>
-				<strong>E-mail: </strong> {{ user.email }}
+				<strong>{% trans 'Mail:' %} </strong> {{ user.email }}
 			</p>
 			<p>
-				<strong>Telefone: </strong> {{ user.phone }}
+				<strong>{% trans 'Phone:' %} </strong> {{ user.phone }}
 			</p>
 			<p>
-				<strong>Cpf: </strong> {{ user.cpf }}
+				<strong>{% trans 'Cpf' %}: </strong> {{ user.cpf }}
 			</p>
 			<p>
-				<strong>Data de nascimento: </strong> {{ user.birth_date }}
+				<strong>{% trans 'Birth date' %}: </strong> {{ user.birth_date }}
 			</p>
 		</div>
 	</div>

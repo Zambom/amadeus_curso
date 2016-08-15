@@ -146,3 +146,5 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
 ]
 ROLEPERMISSIONS_MODULE = 'amadeus.roles'
+
+#https://github.com/squ1b3r/Djaneiro

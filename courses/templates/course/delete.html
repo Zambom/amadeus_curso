@@ -1,22 +1,21 @@
 {% extends 'app/base.html' %}
 
-{% load static %}
+{% load static i18n %}
 
 {% block breadcrumbs %}
 	<ol class="breadcrumb">
-	  	<li><a href="{% url 'app:index' %}">Página Inicial</a></li>
+	  	<li><a href="{% url 'app:index' %}">{% trans 'Home' %}</a></li>
 	  	<li><a href="{% url 'app:course:view' course.slug %}">{{ course }}</a></li>
-	  	<li class="active">Gerenciar Módulos</li>
 	</ol>
 {% endblock %}
 
 {% block sidebar %}
 	<div class="list-group">
 	  	<a href="{% url 'app:course:manage' %}" class="list-group-item">
-	    	Cursos
+	    	{% trans 'Courses' %}
 	  	</a>
 	  	<a href="{% url 'app:course:create' %}" class="list-group-item">
-	    	Criar Curso
+	    	{% trans 'Create Course' %}
 	  	</a>
 	</div>
 
@@ -25,8 +24,8 @@
 {% block content %}
 	<form action="" method="post">
 		{% csrf_token %}
-	    <p>Tem certeza que deseja deletar o curso "{{ object }}"?</p>
-	    <input type="submit" class="btn btn-success btn-sm" value="Sim" />
-	    <a href="{% url 'app:course:manage' %}" class="btn btn-danger btn-sm">Não</a>
+	    <p>{% trans 'Are you sure you want to delete the couse' %} "{{ object }}"?</p>
+	    <input type="submit" class="btn btn-success btn-sm" value="{% trans 'Yes' %}" />
+	    <a href="{% url 'app:course:manage' %}" class="btn btn-danger btn-sm">{% trans 'No' %}</a>
 	</form>
 {% endblock %}

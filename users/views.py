@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from rolepermissions.shortcuts import assign_role
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.utils.translation import ugettext_lazy as _
 from .models import User
 from .forms import UserForm, ProfileForm
 
@@ -31,7 +32,7 @@ def create(request):
 
 		user.save()
 
-		messages.success(request, 'Usuário criado com sucesso!')
+		messages.success(request, _('User created successfully!'))
 
 		return redirect('app:users:manage')
 	
@@ -59,7 +60,7 @@ def update(request, login):
 
 		new_user.save()
 
-		messages.success(request, 'Usuário editado com sucesso!')
+		messages.success(request, _('User edited successfully!'))
 
 		return redirect('app:users:manage')
 	
@@ -103,7 +104,7 @@ def edit_profile(request):
 
 		user.save()
 
-		messages.success(request, 'Perfil editado com sucesso!')
+		messages.success(request, _('Profile edited successfully!'))
 
 	context['form'] = form
 

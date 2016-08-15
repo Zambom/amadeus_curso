@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-{% load static %}
+{% load static i18n %}
 <!-- 
 Copyright 2008, 2009 UFPE - Universidade Federal de Pernambuco
  
@@ -54,7 +54,7 @@ Você deve ter recebido uma cópia da Licença Pública Geral GNU, sob o título
             		<span class="icon-bar"></span>
           		</button>
           		<a class="navbar-brand" href="{% url 'home' %}">
-          			<img alt="Brand" src="{% static 'imgs/amadeus.png' %}" /> Projeto Amadeus
+          			<img alt="Brand" src="{% static 'imgs/amadeus.png' %}" /> {% trans 'Project Amadeus' %}
           		</a>
         	</div>
         	<div id="navbar" class="collapse navbar-collapse pull-right">
@@ -94,7 +94,7 @@ Este programa é distribuído na esperança que possa ser útil, mas SEM NENHUMA
 Você deve ter recebido uma cópia da Licença Pública Geral GNU, sob o título "LICENCA.txt", junto com este programa, se não, escreva para a Fundação do Software Livre (FSF) Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA.
 -->
 	<div class="well well-sm footer">
-		&copy; Copyright Amadeus 2016. Todos os direitos reservados
+		&copy; Copyright Amadeus 2016. {% trans 'All rights reserved' %}
 	</div>
 
 	<script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>

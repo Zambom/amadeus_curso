@@ -1,25 +1,25 @@
 {% extends 'app/base.html' %}
 
-{% load static %}
+{% load static i18n %}
 {% load widget_tweaks %}
 
 {% block breadcrumbs %}
 	<ol class="breadcrumb">
-	  	<li><a href="{% url 'app:index' %}">Página Inicial</a></li>
-	  	<li class="active">Novo usuário</li>
+	  	<li><a href="{% url 'app:index' %}">{% trans 'Home' %}</a></li>
+	  	<li class="active">{% trans 'New User' %}</li>
 	</ol>
 {% endblock %}
 
 {% block sidebar %}
 	<div class="list-group">
 	  	<a href="{% url 'app:users:manage' %}" class="list-group-item">
-	    	Usuários do Sistema
+	    	{% trans 'System Users' %}
 	  	</a>
 	  	<a href="{% url 'app:users:create' %}" class="list-group-item active">
-	    	Nova Conta
+	    	{% trans 'New Account' %}
 	  	</a>
 	  	<a href="{% url 'app:send_mail' %}" class="list-group-item">
-	    	Enviar Email
+	    	{% trans 'Send Mail' %}
 	  	</a>
 	</div>
 {% endblock %}
@@ -29,7 +29,7 @@
 		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 			<span aria-hidden="true">&times;</span>
 		</button>
-		<p>Todos os campos do formulário são de preenchimento obrigatório</p>
+		<p>{% trans 'All fields are required' %}</p>
 	</div>
 
 	<form method="post" action="" enctype="multipart/form-data">
@@ -54,7 +54,7 @@
 				{% endif %}
 			</div>
 		{% endfor %}
-		<input type="submit" value="Avançar" class="btn btn-sm btn-success" />
+		<input type="submit" value="{% trans 'Save' %}" class="btn btn-sm btn-success" />
 	</form>
 	<br clear="all" />
 {% endblock %}
