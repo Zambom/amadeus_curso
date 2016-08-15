@@ -1,6 +1,6 @@
 {% extends 'app/base.html' %}
 
-{% load static i18n %}
+{% load static i18n permission_tags custom_filters %}
 
 {% block breadcrumbs %}
 	<ol class="breadcrumb">
@@ -62,12 +62,14 @@
 								<a href="{% url 'app:course:view' course.slug %}" class="btn btn-sm btn-info">
 									<span class="glyphicon glyphicon-eye-open"></span>
 								</a>
-								<a href="{% url 'app:course:update' course.slug %}" class="btn btn-sm btn-primary">
-									<span class="glyphicon glyphicon-edit"></span>
-								</a>
-								<a href="{% url 'app:course:delete' course.slug %}" class="btn btn-sm btn-danger">
-									<span class="glyphicon glyphicon-trash"></span>
-								</a>
+								{% if user|has_role:'professor, system_admin' %}
+									<a href="{% url 'app:course:update' course.slug %}" class="btn btn-sm btn-primary">
+										<span class="glyphicon glyphicon-edit"></span>
+									</a>
+									<a href="{% url 'app:course:delete' course.slug %}" class="btn btn-sm btn-danger">
+										<span class="glyphicon glyphicon-trash"></span>
+									</a>
+								{% endif %}
 							</div>
 							<h4>
 								<a href="{% url 'app:course:view' course.slug %}">
@@ -75,7 +77,7 @@
 								</a>
 							</h4>
 							<span class="label label-info">{{ course.category }}</span>
-							<span class="label label-warning">{{ course.max_students }} alunos no máximo</span>
+							<span class="label label-warning">{{ course.max_students }} {% trans 'students tops' %}</span>
 							<small>
 								<em>{{ course.objectivies|linebreaks }}</em>
 							</small>
@@ -85,6 +87,11 @@
 			  				<br />
 							<strong>{% trans 'Period:' %} </strong> <em>de</em> <u>{{ course.init_date }}</u> <em>até</em> <u>{{ course.end_date }}</u>
 			  			</div>
+			  			{% if user|has_role:'student' and course|valid_period %}
+				  			<div class="col-md-12">
+				  				<a href="" class="btn btn-sm btn-success pull-right">{% trans 'Subscribe' %}</a>
+				  			</div>
+				  		{% endif %}
 					</div>
 		  		</div>
 			</div>
@@ -101,9 +108,4 @@
 	{% else %}
 		{% trans 'No courses found' %}
 	{% endif %}
-			
-	<!-- 	{% if courses|length > 0 %}
-			<span class="pagebanner">{{ courses|length }} itens encontrados, exibindo todos os itens.</span>
-			<span class="pagelinks"><strong>1</strong></span>
-		{% endif %} -->
 {% endblock %}

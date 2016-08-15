@@ -5,6 +5,7 @@ class Student(AbstractUserRole):
 		'view_courses': True,
 		'view_modules': True,
 		'view_categories': True,
+		'subscribe_course': True,
 	}
 
 class Professor(AbstractUserRole):

@@ -1,5 +1,6 @@
 from django.utils.translation import ugettext_lazy as _
 from django.db import models
+from users.models import User
 
 class Category(models.Model):
 
@@ -28,6 +29,7 @@ class Course(models.Model):
 	end_date = models.DateField(_('End of Course Date'))
 	image = models.ImageField(verbose_name = _('Image'), blank = True, upload_to = 'courses/', default = 'no_image.jpg')
 	category = models.ForeignKey(Category, verbose_name = _('Category'), default = 1)
+	user = models.ForeignKey(User, verbose_name = _('User'), null = True)
 
 	class Meta:
 
