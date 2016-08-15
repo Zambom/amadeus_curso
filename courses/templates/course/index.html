@@ -83,13 +83,18 @@
 							</small>
 			  			</div>
 			  			<div class="col-md-12">
-			  				<strong>{% trans 'Subscribes:' %} </strong> <em>de</em> <u>{{ course.init_register_date }}</u> <em>até</em> <u>{{ course.end_register_date }}</u>
+			  				<strong>{% trans 'Subscribe Period:' %} </strong> <em>de</em> <u>{{ course.init_register_date }}</u> <em>até</em> <u>{{ course.end_register_date }}</u>
 			  				<br />
 							<strong>{% trans 'Period:' %} </strong> <em>de</em> <u>{{ course.init_date }}</u> <em>até</em> <u>{{ course.end_date }}</u>
 			  			</div>
-			  			{% if user|has_role:'student' and course|valid_period %}
+			  			{% if user|has_role:'student' and course|show_subscribe:request.user %}
 				  			<div class="col-md-12">
-				  				<a href="" class="btn btn-sm btn-success pull-right">{% trans 'Subscribe' %}</a>
+				  				<form method="POST" action="{% url 'app:subscription:subscribe' %}">
+				  					{% csrf_token %}
+				  					<input type='hidden' name="user" id="id_user" value="{{ request.user.id }}" />
+				  					<input type='hidden' name="course" id="id_course" value="{{ course.id }}" />
+				  					<input type='submit' class="btn btn-sm btn-success pull-right" value="{% trans 'Subscribe' %}" />
+				  				</form>
 				  			</div>
 				  		{% endif %}
 					</div>

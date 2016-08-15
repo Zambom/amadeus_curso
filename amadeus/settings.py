@@ -40,10 +40,12 @@ INSTALLED_APPS = [
 
     'widget_tweaks',
     'rolepermissions',
+    'django_ajax',
 
     'core',
     'app',
     'courses',
+    'subscriptions',
     'users',
 ]
 
@@ -72,6 +74,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
+                'subscriptions.context_processors.subscribed_courses',
             ],
         },
     },

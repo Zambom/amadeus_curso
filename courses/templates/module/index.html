@@ -1,6 +1,6 @@
 {% extends 'app/base.html' %}
 
-{% load static i18n %}
+{% load static i18n permission_tags %}
 
 {% block breadcrumbs %}
 	<ol class="breadcrumb">
@@ -12,33 +12,35 @@
 
 {% block sidebar %}
 	<div class="list-group">
-	  	<a href="{% url 'app:course:manage' %}" class="list-group-item">
+		<a href="{% url 'app:course:manage' %}" class="list-group-item">
 	    	{% trans 'Courses' %}
-	  	</a>
-	  	<a href="{% url 'app:course:create' %}" class="list-group-item">
-	    	{% trans 'Create Course' %}
 	  	</a>
 	  	<a href="{% url 'app:course:view' course.slug %}" class="list-group-item active">
 	    	{% trans 'Course Info' %}
 	  	</a>
-	  	<a href="{% url 'app:course:update' course.slug %}" class="list-group-item">
-	    	{% trans 'Edit Course' %}
-	  	</a>
 	  	<a href="{% url 'app:course:manage_mods' course.slug %}" class="list-group-item">
 	    	{% trans 'Manage Modules' %}
 	  	</a>
-	  	<a href="" class="list-group-item">
-	    	{% trans 'Participants' %}
-	  	</a>
-		<a href="" class="list-group-item">
-	    	{% trans 'Course avaliations' %}
-	  	</a>
-		<a href="" class="list-group-item">
-	    	{% trans 'Duplicate Course' %}
-	  	</a>
-	  	<a href="" class="list-group-item">
-	    	{% trans 'Delete Course' %}
-	  	</a>
+	  	{% if user|has_role:'professor, system_admin' %}
+		  	<a href="{% url 'app:course:create' %}" class="list-group-item">
+		    	{% trans 'Create Course' %}
+		  	</a>
+		  	<a href="{% url 'app:course:update' course.slug %}" class="list-group-item">
+		    	{% trans 'Edit Course' %}
+		  	</a>
+		  	<a href="" class="list-group-item">
+		    	{% trans 'Participants' %}
+		  	</a>
+			<a href="" class="list-group-item">
+		    	{% trans 'Course avaliations' %}
+		  	</a>
+			<a href="" class="list-group-item">
+		    	{% trans 'Duplicate Course' %}
+		  	</a>
+		  	<a href="" class="list-group-item">
+		    	{% trans 'Delete Course' %}
+		  	</a>
+		{% endif %}
 	</div>
 
 {% endblock %}
@@ -62,18 +64,20 @@
   		<div class="col-md-10">
 			<div class="row">
 	  			<div class="col-md-12">
-					<div class="pull-right">
-						<a href="{% url 'app:course:create_mods' course.slug %}" class="btn btn-sm btn-success">
-							{% trans 'Create Module' %}
-						</a>
-					</div>
+	  				{% if user|has_role:'professor, system_admin' %}
+						<div class="pull-right">
+							<a href="{% url 'app:course:create_mods' course.slug %}" class="btn btn-sm btn-success">
+								{% trans 'Create Module' %}
+							</a>
+						</div>
+					{% endif %}
 					<h4>
 						<a href="{% url 'app:course:view' course.slug %}">
 							{{ course }}
 						</a>
 					</h4>
 					<span class="label label-info">{{ course.category }}</span>
-					<span class="label label-warning">{{ course.max_students }} {% trans 'maximmun students'}</span>
+					<span class="label label-warning">{{ course.max_students }} {% trans 'students maximum' %}</span>
 	  			</div>
 	  			<div class="col-md-12">
 					<strong>{% trans 'Period:' %} </strong> <em>de</em> <u>{{ course.init_date }}</u> <em>até</em> <u>{{ course.end_date }}</u>
