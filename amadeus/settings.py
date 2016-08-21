@@ -40,7 +40,7 @@ INSTALLED_APPS = [
 
     'widget_tweaks',
     'rolepermissions',
-    'django_ajax',
+    'rest_framework',
 
     'core',
     'app',
