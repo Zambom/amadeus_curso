@@ -2,7 +2,10 @@ from django.shortcuts import render
 from django.http import HttpResponse
 
 def index(request):
-	return render(request, "index.html")
+	context = {
+		'subscribed_courses': 'testando'
+	}
+	return render(request, "index.html", context)
 
 def nova_conta(request):
 	return render(request, "nova_conta.html")
